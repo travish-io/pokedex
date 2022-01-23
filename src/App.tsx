@@ -1,24 +1,81 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { GetPokemon } from "./actions/PokemonActions";
+import { RootStore } from "./Store";
+import "./App.css";
 
 function App() {
+  const dispatch = useDispatch();
+  const pokemonState = useSelector((state: RootStore) => state.pokemon);
+  const [pokemon, setPokemon] = useState("");
+  const handleSearch = () => dispatch(GetPokemon(pokemon));
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setPokemon(event.target.value);
+
+  console.log("pokemon state:", pokemonState);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Pokédex</h1>
+      <input type={"text"} onChange={handleChange} />
+      <button onClick={handleSearch}>Search Pokémon</button>
+      <div>
+        {pokemonState.pokemon ? (
+          <div className="poke-container">
+            <h2 className="poke-name">{pokemonState.pokemon?.name}</h2>
+            <img src={pokemonState?.pokemon?.sprites?.front_default} alt="" />
+            <p style={{ marginTop: 0, marginBottom: 0 }}>
+              <small>Pokédex No. {pokemonState.pokemon?.id}</small>
+            </p>
+            <p style={{ marginTop: 0, marginBottom: 0 }}>
+              <small>
+                Height: {pokemonState.pokemon.height} • Weight:{" "}
+                {pokemonState.pokemon.weight}
+              </small>
+            </p>
+            {pokemonState.pokemon?.types?.length > 1 ? (
+              <p className="poke-type">
+                Types:{" "}
+                {pokemonState.pokemon?.types?.map((type, index) => {
+                  if (index === 0) {
+                    return `${type.type.name}, `;
+                  } else {
+                    return `${type.type.name} `;
+                  }
+                })}
+              </p>
+            ) : (
+              <p className="poke-type">
+                Type:{" "}
+                {pokemonState.pokemon?.types?.map((type) => {
+                  return `${type.type.name} `;
+                })}
+              </p>
+            )}
+            <div className="poke-abilities">
+              {pokemonState.pokemon?.abilities?.map((ability, index) => {
+                return (
+                  <p style={{}}>
+                    Ability {index + 1}:<br /> {ability.ability.name}
+                  </p>
+                );
+              })}
+            </div>
+            <p style={{ margin: 0 }}>Base Stats:</p>
+            <div className="poke-stats">
+              {pokemonState.pokemon.stats.map((stat) => {
+                return (
+                  <p className="poke-stat">
+                    <small>{`${stat.stat.name}: ${stat.base_stat} `}</small>
+                  </p>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
     </div>
   );
 }
