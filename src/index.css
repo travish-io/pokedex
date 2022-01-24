@@ -12,6 +12,24 @@ code {
     monospace;
 }
 
+.bg {
+  background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2F7YlpAJP.jpg&f=1&nofb=1");
+  height: 100vh;
+  opacity: 0.3;
+  z-index: -1;
+  background-size: 100% 104%;
+}
+
+.container-container {
+  width: 336px;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  margin-left: -166px;
+  min-height: 475px;
+  overflow: auto;
+}
+
 .poke-name {
   text-transform: capitalize;
   margin-bottom: 0;
@@ -19,8 +37,12 @@ code {
 
 .poke-abilities {
   display: flex;
-  width: 360px;
   justify-content: space-evenly;
+}
+
+.poke-ability {
+  margin: 16px;
+  text-transform: capitalize;
 }
 
 .poke-stats {
@@ -29,11 +51,12 @@ code {
   flex-wrap: wrap;
   align-content: center;
   align-items: flex-start;
-  height: 48px;
+  height: 63px;
 }
 
 .poke-stat {
   margin: 0 6px;
+  text-transform: capitalize;
 }
 
 .poke-container {
@@ -41,8 +64,11 @@ code {
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
+  align-content: center;
+  justify-content: center;
 }
 
 .poke-type {
   margin: 6px;
+  text-transform: capitalize;
 }

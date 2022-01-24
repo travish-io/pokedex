@@ -17,7 +17,7 @@ export const GetPokemon =
       const res =
         pokemon === ""
           ? await axios.get(
-              `https://pokeapi.co/api/v2/pokemon/${Math.floor(
+              `https://pokeapi.co/api/v2/pokemon/${Math.ceil(
                 Math.random() * 898
               )}`
             )
