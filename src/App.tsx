@@ -68,6 +68,7 @@ function App() {
               </div>
               <p style={{ margin: 0 }}>Base Stats:</p>
               <div className="poke-stats">
+                {/* {function fn(): any {}} */}
                 {pokemonState?.pokemon?.stats.map((stat: any) => {
                   return (
                     <p className="poke-stat">
